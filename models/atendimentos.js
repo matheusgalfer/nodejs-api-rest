@@ -2,14 +2,15 @@ const express = require('express')
 const conexao = require('../infraestrutura/conexao')
 
 class Atendimento {
-    adiciona(Atendimento) {
+    adiciona(Atendimento, res) { 
         const sql = "INSERT INTO Atendimentos SET ?"
         
         conexao.query(sql, Atendimento, (erro, resultados) => {
             if(erro) {
-                console.log(erro)
+                //erro no client: bad request
+                res.status(400).json(erro)
             } else {
-                console.log(resultados)
+                res.status(201).json(resultados)
             }
         })
     }
